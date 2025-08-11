@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CREDIFY — Calculate Score</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .flex-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: #111;
+      color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      flex: 1;
+      min-width: 320px;
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .card ul li {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html"><img src="logo-removebg-preview.png" alt="Credify logo" style="height:28px;"></a>
+      <a href="index.html">Home</a>
+      <a href="#" class="active">Calculate Score</a>
+      <a href="profile.html">Profile</a>
+      <a href="brands.html">For Brands</a>
+      <a href="about.html">About Us</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <section>
+      <h1 style="color:var(--primary)">Calculate Your Credibility Score</h1>
+      <p class="lead">Fill in your social media stats and get your personalized score instantly.</p>
+
+      <div class="flex-section">
+        <!-- Result Card -->
+        <div id="result-card" class="card" style="display:none;">
+          <h2 id="total-score"></h2>
+          <ul>
+            <li id="audience-score"></li>
+            <li id="engagement-score"></li>
+            <li id="consistency-score"></li>
+            <li id="conversion-score"></li>
+            <li id="blac-score"></li>
+          </ul>
+        </div>
+
+        <!-- Form Card -->
+        <form id="score-form" class="calc-form card">
+          <label for="followers">Followers:</label>
+          <input type="number" id="followers" name="followers" required>
+
+          <label for="engagement">Engagement Rate (%):</label>
+          <input type="number" id="engagement" name="engagement" step="0.01" required>
+
+          <label for="posts">Number of Posts (per month):</label>
+          <input type="number" id="posts" name="posts" required>
+
+          <label for="conversion">Conversion Rate (%):</label>
+          <input type="number" id="conversion" name="conversion" step="0.01" required>
+
+          <label for="blac">BLAC Fit Score (0–100):</label>
+          <input type="number" id="blac" name="blac" min="0" max="100" required>
+
+          <button type="submit" class="btn">Calculate Score</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <small>© 2025 CREDIFY — Trust. Transparency. Empowerment.</small>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    function calculateSocialScore(followers, engagementRate, postsPerMonth, conversionRate, blacFitScore) {
+      // Audience score
+      let audienceScore = followers < 1000 ? 50 :
+                          followers < 5000 ? 150 :
+                          followers < 10000 ? 250 : 350;
+
+      // Engagement score
+      let engagementScore = engagementRate >= 18 ? 300 :
+                            engagementRate >= 10 ? 200 :
+                            engagementRate >= 5 ? 100 : 50;
+
+      // Consistency score
+      let consistencyScore = postsPerMonth >= 12 ? 150 :
+                             postsPerMonth >= 6 ? 100 :
+                             postsPerMonth >= 1 ? 50 : 0;
+
+      // Conversion score
+      let conversionScore = conversionRate >= 5 ? 100 :
+                            conversionRate >= 2 ? 75 :
+                            conversionRate >= 1 ? 50 : 25;
+
+      // BLAC score
+      let blacScore = Math.min(Math.max(blacFitScore, 0), 100);
+
+      // Total score
+      let totalScore = audienceScore + engagementScore + consistencyScore + conversionScore + blacScore;
+
+      return {
+        audienceScore,
+        engagementScore,
+        consistencyScore,
+        conversionScore,
+        blacScore,
+        totalScore
+      };
+    }
+
+    document.getElementById("score-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let followers = parseInt(document.getElementById("followers").value);
+      let engagement = parseFloat(document.getElementById("engagement").value);
+      let posts = parseInt(document.getElementById("posts").value);
+      let conversion = parseFloat(document.getElementById("conversion").value);
+      let blac = parseInt(document.getElementById("blac").value);
+
+      let result = calculateSocialScore(followers, engagement, posts, conversion, blac);
+
+      document.getElementById("total-score").textContent = `Your Total Social Score: ${result.totalScore}`;
+      document.getElementById("audience-score").textContent = `Audience Score: ${result.audienceScore}`;
+      document.getElementById("engagement-score").textContent = `Engagement Score: ${result.engagementScore}`;
+      document.getElementById("consistency-score").textContent = `Content Consistency Score: ${result.consistencyScore}`;
+      document.getElementById("conversion-score").textContent = `Conversion Score: ${result.conversionScore}`;
+      document.getElementById("blac-score").textContent = `BLAC Fit Score: ${result.blacScore}`;
+
+      document.getElementById("result-card").style.display = "block";
+    });
+  </script>
+</body>
+</html>
