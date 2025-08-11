@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CREDIFY — Profile</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <a href="index.html"><img src="images/logo.png" alt="logo" style="height:26px"></a>
+      <a href="index.html">Home</a>
+      <a href="calculate.html">Calculate Score</a>
+      <a href="profile.html">Profile</a>
+      <a href="brands.html">For Brands</a>
+      <a href="about.html">About Us</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>Your Public Profile</h2>
+    <p class="lead">This is the public creator profile brands will see — with your Credify score, badge and summary.</p>
+
+    <article class="profile-card">
+      <div class="profile-left">
+        <img class="avatar" src="images/profile_sample.png" alt="Creator avatar">
+        <div style="font-size:.9rem;color:var(--muted)">Badge:</div>
+        <img src="images/badge.png" alt="badge" style="width:84px;border-radius:8px">
+      </div>
+
+      <div class="profile-right">
+        <h3>John Doe</h3>
+        <p>Fashion Creator · 45K followers</p>
+        <p style="margin-bottom:10px">Score: <strong style="color:var(--primary)">742</strong> / 1000 — <span style="color:var(--secondary);font-weight:700">Pro</span></p>
+
+        <p class="lead" style="text-align:left;font-size:.96rem">Short bio: I create approachable high-quality fashion content focused on styling and sustainable looks. I collaborate with like-minded brands to tell authentic stories.</p>
+
+        <div style="margin-top:12px">
+          <button id="verifyBtn" class="btn">Request Verification</button>
+          <a class="btn secondary" href="calculate.html" style="margin-left:8px">Recalculate Score</a>
+        </div>
+      </div>
+    </article>
+
+    <div class="nav-row">
+      <a class="btn secondary" href="calculate.html">← Previous</a>
+      <a class="btn" href="brands.html">Next →</a>
+    </div>
+  </main>
+
+  <!-- modal -->
+  <div id="verifyModal" class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-box">
+      <div class="modal-title">Request Verification</div>
+      <div class="modal-text">Verification requests are reviewed by our team. Submitting a request will add your profile to the verification queue. Continue?</div>
+      <div class="modal-actions">
+        <button id="cancelVerify" class="btn secondary">Cancel</button>
+        <button id="confirmVerify" class="btn">Yes, Request</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <small>© 2025 CREDIFY</small>
+  </footer>
+
+  <script src="profile.js" defer></script>
+</body>
+</html>
