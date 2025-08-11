@@ -40,6 +40,32 @@
       padding: 6px 0;
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    input {
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+    }
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: var(--secondary);
+    }
   </style>
 </head>
 <body>
@@ -48,7 +74,7 @@
     <nav class="nav">
       <a href="index.html"><img src="logo-removebg-preview.png" alt="Credify logo" style="height:28px;"></a>
       <a href="index.html">Home</a>
-      <a href="#" class="active">Calculate Score</a>
+      <a href="calculate.html" class="active">Calculate Score</a>
       <a href="profile.html">Profile</a>
       <a href="brands.html">For Brands</a>
       <a href="about.html">About Us</a>
@@ -59,7 +85,7 @@
   <main class="container">
     <section>
       <h1 style="color:var(--primary)">Calculate Your Credibility Score</h1>
-      <p class="lead">Fill in your social media stats and get your personalized score instantly.</p>
+      <p class="lead">Enter your username to get your personalized score instantly.</p>
 
       <div class="flex-section">
         <!-- Result Card -->
@@ -74,83 +100,68 @@
           </ul>
         </div>
 
-        <!-- Form Card -->
+        <!-- Username Form Card -->
         <form id="score-form" class="calc-form card">
-          <label for="followers">Followers:</label>
-          <input type="number" id="followers" name="followers" required>
-
-          <label for="engagement">Engagement Rate (%):</label>
-          <input type="number" id="engagement" name="engagement" step="0.01" required>
-
-          <label for="posts">Number of Posts (per month):</label>
-          <input type="number" id="posts" name="posts" required>
-
-          <label for="conversion">Conversion Rate (%):</label>
-          <input type="number" id="conversion" name="conversion" step="0.01" required>
-
-          <label for="blac">BLAC Fit Score (0–100):</label>
-          <input type="number" id="blac" name="blac" min="0" max="100" required>
-
-          <button type="submit" class="btn">Calculate Score</button>
+          <label for="username">Username:</label>
+          <input type="text" id="username" placeholder="e.g., cristiano" required>
+          <button type="submit" class="btn">Get Score</button>
         </form>
       </div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" style="bottom: 0;position: fixed;">
     <small>© 2025 CREDIFY — Trust. Transparency. Empowerment.</small>
   </footer>
 
   <!-- JavaScript -->
   <script>
+    // Predefined user data
+    const usersData = {
+      "kimkardashian": {followers: 364000000, engagement: 2.1, posts: 25, conversion: 5, blac: 95},
+      "cristiano": {followers: 623000000, engagement: 2.3, posts: 18, conversion: 6, blac: 98},
+      "selenagomez": {followers: 429000000, engagement: 1.9, posts: 15, conversion: 4, blac: 94},
+      "therock": {followers: 394000000, engagement: 1.8, posts: 22, conversion: 3, blac: 92},
+      "kyliejenner": {followers: 398000000, engagement: 2.0, posts: 20, conversion: 5, blac: 97},
+      "leomessi": {followers: 501000000, engagement: 2.2, posts: 14, conversion: 4.5, blac: 96},
+      "arianagrande": {followers: 380000000, engagement: 1.7, posts: 10, conversion: 3, blac: 91},
+      "justinbieber": {followers: 293000000, engagement: 1.5, posts: 8, conversion: 2.5, blac: 90},
+      "neymarjr": {followers: 214000000, engagement: 1.9, posts: 12, conversion: 4, blac: 93},
+      "billieeilish": {followers: 110000000, engagement: 3.2, posts: 9, conversion: 4.2, blac: 94}
+    };
+
+    // Scoring function
     function calculateSocialScore(followers, engagementRate, postsPerMonth, conversionRate, blacFitScore) {
-      // Audience score
       let audienceScore = followers < 1000 ? 50 :
                           followers < 5000 ? 150 :
                           followers < 10000 ? 250 : 350;
-
-      // Engagement score
       let engagementScore = engagementRate >= 18 ? 300 :
                             engagementRate >= 10 ? 200 :
                             engagementRate >= 5 ? 100 : 50;
-
-      // Consistency score
       let consistencyScore = postsPerMonth >= 12 ? 150 :
                              postsPerMonth >= 6 ? 100 :
                              postsPerMonth >= 1 ? 50 : 0;
-
-      // Conversion score
       let conversionScore = conversionRate >= 5 ? 100 :
                             conversionRate >= 2 ? 75 :
                             conversionRate >= 1 ? 50 : 25;
-
-      // BLAC score
       let blacScore = Math.min(Math.max(blacFitScore, 0), 100);
-
-      // Total score
       let totalScore = audienceScore + engagementScore + consistencyScore + conversionScore + blacScore;
-
-      return {
-        audienceScore,
-        engagementScore,
-        consistencyScore,
-        conversionScore,
-        blacScore,
-        totalScore
-      };
+      return {audienceScore, engagementScore, consistencyScore, conversionScore, blacScore, totalScore};
     }
 
+    // Form submission
     document.getElementById("score-form").addEventListener("submit", function(e) {
       e.preventDefault();
+      const username = document.getElementById("username").value.trim().toLowerCase();
 
-      let followers = parseInt(document.getElementById("followers").value);
-      let engagement = parseFloat(document.getElementById("engagement").value);
-      let posts = parseInt(document.getElementById("posts").value);
-      let conversion = parseFloat(document.getElementById("conversion").value);
-      let blac = parseInt(document.getElementById("blac").value);
+      if (!usersData[username]) {
+        alert("Username not found. Try one of: " + Object.keys(usersData).join(", "));
+        return;
+      }
 
-      let result = calculateSocialScore(followers, engagement, posts, conversion, blac);
+      const data = usersData[username];
+      const result = calculateSocialScore(data.followers, data.engagement, data.posts, data.conversion, data.blac);
 
       document.getElementById("total-score").textContent = `Your Total Social Score: ${result.totalScore}`;
       document.getElementById("audience-score").textContent = `Audience Score: ${result.audienceScore}`;
