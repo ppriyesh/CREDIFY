@@ -13,6 +13,8 @@
       justify-content: center;
       align-items: flex-start;
       margin-top: 20px;
+      flex-direction: column;
+      margin: auto;
     }
 
     .card {
@@ -66,6 +68,24 @@
     button:hover {
       background: var(--secondary);
     }
+    #result-card {
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  max-width: 500px;
+  margin: 20px auto; /* center the card */
+}
+#score-form{
+    background: #111;
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  max-width: 500px;
+  margin: 5px auto;
+}
   </style>
 </head>
 <body>
@@ -89,7 +109,15 @@
 
       <div class="flex-section">
         <!-- Result Card -->
-        <div id="result-card" class="card" style="display:none;">
+        
+
+        <!-- Username Form Card -->
+        <form id="score-form" class="calc-form card">
+          <label for="username">Username:</label>
+          <input type="text" id="username" placeholder="e.g., cristiano" required>
+          <button type="submit" class="btn">Get Score</button>
+        </form>
+        <div id="result-card" class="card" style="display:none;margin-top:20px;">
           <h2 id="total-score"></h2>
           <ul>
             <li id="audience-score"></li>
@@ -99,13 +127,6 @@
             <li id="blac-score"></li>
           </ul>
         </div>
-
-        <!-- Username Form Card -->
-        <form id="score-form" class="calc-form card">
-          <label for="username">Username:</label>
-          <input type="text" id="username" placeholder="e.g., cristiano" required>
-          <button type="submit" class="btn">Get Score</button>
-        </form>
       </div>
     </section>
   </main>
