@@ -184,3 +184,43 @@ label{display:block;font-weight:600;margin-top:12px;color:var(--primary);font-si
   font-size: 1em;
 }
 
+.calc-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.calc-form label {
+  margin-top: 12px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.calc-form input, 
+.calc-form select {
+  padding: 8px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background: #222;
+  color: white;
+  font-size: 14px;
+}
+
+.calc-form button {
+  margin-top: 20px;
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.calc-form button:hover {
+  background: #ff8844; /* Adjust hover color */
+}

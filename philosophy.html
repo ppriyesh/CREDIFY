@@ -11,7 +11,7 @@
     <nav class="nav">
       <a href="index.html"><img src="logo-removebg-preview.png" alt="logo" style="height:26px"></a>
       <a href="index.html">Home</a>
-      <a href="calculate.html">Calculate Score</a>
+      <a href="calculate1.html">Calculate Score</a>
       <a href="profile.html">Profile</a>
       <a href="brands.html">For Brands</a>
       <a href="about.html">About Us</a>
@@ -60,6 +60,27 @@
   </main>
 
   <footer class="footer"><small>© 2025 CREDIFY</small></footer>
+  <button onclick="readEntirePage()" style="padding:10px 20px;background:#0F4C81;color:white;border:none;border-radius:6px;font-size:16px;font-weight:bold;">
+  🔊 Read Page
+</button>
+
+<script>
+function readEntirePage() {
+    // Get all visible text from the body
+    let text = document.body.innerText;
+
+    // Create speech object
+    let speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "en-US"; // You can change to 'en-GB', 'hi-IN', etc.
+    speech.rate = 1; // Speed
+    speech.pitch = 1; // Pitch
+
+    // Speak the text
+    window.speechSynthesis.speak(speech);
+}
+</script>
+
+
 </body>
 </html>
 
